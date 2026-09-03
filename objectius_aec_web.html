@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Objectius AEC — Prioritzem plegats</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAF8F2;
+    --paper-dim:#F1EEE3;
+    --ink:#1C1B18;
+    --ink-soft:#5B584E;
+    --red:#B8272E;
+    --red-dark:#8E1E24;
+    --mustard:#CF9B2E;
+    --mustard-light:#F3D98B;
+    --teal:#1F4E4A;
+    --line:#DEDACB;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Work Sans',sans-serif;line-height:1.6;}
+  .wrap{max-width:820px;margin:0 auto;padding:0 20px 100px;}
+
+  /* TOP BANNER */
+  .top-banner{background:var(--mustard);border-bottom:3px solid var(--ink);padding:14px 20px;}
+  .top-banner-inner{max-width:820px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;text-align:center;}
+  .top-banner svg{flex-shrink:0;}
+  .top-banner p{margin:0;font-family:'Bebas Neue',sans-serif;font-size:clamp(19px,3.4vw,26px);letter-spacing:0.3px;color:var(--ink);line-height:1.05;}
+
+  /* HERO */
+  .hero{border-bottom:3px solid var(--ink);padding:36px 0 26px;margin-bottom:0;background:repeating-linear-gradient(135deg, transparent, transparent 22px, rgba(184,39,46,0.05) 22px, rgba(184,39,46,0.05) 23px), var(--paper);}
+  .hero-inner{max-width:820px;margin:0 auto;padding:0 20px;}
+  .eyebrow{font-size:13px;color:var(--red);font-weight:700;letter-spacing:0.3px;margin-bottom:8px;}
+  .hero h1{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(34px,6.5vw,52px);line-height:0.95;margin:0 0 14px;}
+  .hero p{max-width:62ch;color:var(--ink-soft);font-size:15.5px;margin:0;}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;}
+  .chip{border:2px solid var(--ink);padding:6px 11px;font-size:13px;font-weight:600;display:flex;gap:6px;align-items:baseline;background:var(--paper);}
+  .chip.red{border-color:var(--red);color:var(--red-dark);}
+  .chip .d{font-family:'Bebas Neue',sans-serif;font-size:16px;}
+
+  /* STICKY ACTION BAR */
+  .actionbar{position:sticky;top:0;z-index:30;background:var(--ink);padding:0;}
+  .nav{overflow-x:auto;white-space:nowrap;border-bottom:1px solid rgba(255,255,255,0.15);}
+  .nav-inner{max-width:820px;margin:0 auto;padding:9px 20px;display:flex;gap:6px;}
+  .nav a{color:#EDEAE0;text-decoration:none;font-size:12.5px;font-weight:600;padding:6px 11px;border:1px solid rgba(255,255,255,0.25);flex-shrink:0;}
+  .nav a:hover{background:var(--red);border-color:var(--red);}
+  .toolbar{max-width:820px;margin:0 auto;padding:9px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+  .toolbar .count{color:var(--mustard-light);font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:0.3px;}
+  .toolbar .count b{color:#fff;}
+  .toolbar button{background:var(--red);color:#fff;border:none;padding:8px 16px;font-weight:700;font-size:13px;cursor:pointer;font-family:'Work Sans',sans-serif;}
+  .toolbar button:hover{background:var(--red-dark);}
+  .toolbar button.ghost2{background:none;border:1px solid rgba(255,255,255,0.35);color:#EDEAE0;}
+
+  .note{background:var(--paper-dim);border-left:4px solid var(--teal);padding:14px 16px;font-size:13.5px;margin:28px 0 40px;}
+  .note strong{color:var(--teal);}
+  .note a{color:var(--teal);font-weight:600;}
+
+  /* EIX SECTIONS */
+  .eix{margin-bottom:52px;scroll-margin-top:96px;}
+  .eix-num{font-family:'Bebas Neue',sans-serif;color:var(--red);font-size:14px;letter-spacing:1px;background:linear-gradient(transparent 60%, rgba(207,155,46,0.35) 60%);display:inline-block;padding:0 2px;}
+  .eix h2{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(28px,5vw,38px);margin:2px 0 6px;border-bottom:3px solid var(--ink);padding-bottom:10px;}
+  .eix-hint{font-size:12.5px;color:var(--ink-soft);margin:0 0 16px;}
+  .subgroup{font-size:12px;font-weight:700;color:var(--red-dark);text-transform:uppercase;letter-spacing:0.4px;margin:18px 0 6px;}
+  .subgroup:first-of-type{margin-top:0;}
+  ul.items{list-style:none;margin:0;padding:0;}
+  ul.items li{position:relative;display:flex;align-items:flex-start;gap:10px;padding:8px 6px 8px 4px;font-size:14.5px;border-bottom:1px solid var(--paper-dim);cursor:pointer;user-select:none;}
+  ul.items li:hover{background:var(--paper-dim);}
+  ul.items li.selected{background:#FDF6E3;}
+  ul.items li .badge{flex-shrink:0;min-width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;font-family:'Work Sans',sans-serif;color:transparent;margin-top:1px;}
+  ul.items li.selected .badge{border-color:var(--red);background:var(--red);color:#fff;}
+  ul.items li .txt{flex:1;}
+  ul.items li.selected .txt{font-weight:600;}
+
+  /* PRIORITY SUMMARY */
+  .summary-box{margin-top:16px;border:2px dashed var(--line);padding:14px 16px;}
+  .summary-box.empty{color:var(--ink-soft);font-size:13px;font-style:italic;}
+  .summary-box .stitle{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;color:var(--ink-soft);margin-bottom:10px;}
+  .s-row{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--paper-dim);font-size:14px;}
+  .s-row:last-child{border-bottom:none;}
+  .s-num{font-family:'Bebas Neue',sans-serif;font-size:17px;color:var(--red);min-width:20px;}
+  .s-text{flex:1;}
+  .s-controls{display:flex;gap:4px;flex-shrink:0;}
+  .s-controls button{background:var(--ink);color:#fff;border:none;width:24px;height:24px;font-size:12px;cursor:pointer;line-height:1;}
+  .s-controls button:hover{background:var(--red);}
+  .s-controls button:disabled{background:var(--line);cursor:default;}
+  .s-remove{background:none !important;color:var(--red-dark) !important;font-weight:700;}
+
+  .backtotop{display:inline-block;margin-top:10px;font-size:12px;color:var(--ink-soft);text-decoration:none;}
+  .backtotop:hover{color:var(--red);}
+
+  footer{text-align:center;color:var(--ink-soft);font-size:12.5px;margin-top:40px;border-top:1px solid var(--line);padding-top:24px;}
+
+  @media print{
+    .actionbar, .note, .hero p, .top-banner{display:none !important;}
+    ul.items{display:none !important;}
+    .eix-hint{display:none !important;}
+    .summary-box.empty{display:none !important;}
+    .eix{page-break-inside:avoid;}
+    body{padding:0;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="top-banner">
+    <div class="top-banner-inner">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1C1B18" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h1l3 6h2l-2-6h1l9 4V6L9 10H5a1 1 0 0 0-1 1z"/><path d="M15 8.5v7"/><path d="M19 9c1 1 1 5 0 6"/></svg>
+      <p>Comença el curs, continuem la lluita</p>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">Comissió Objectius AEC</div>
+      <h1>Fixem uns objectius comuns</h1>
+      <p>Sumar força passa per no dispersar-nos. Aquest document recull totes les peticions arribades des dels centres i les converteix en objectius de lluita possibles: ara toca triar, plegats, quins prioritzem.</p>
+      <div class="chips">
+        <div class="chip red"><span class="d">5 set</span> mobilització</div>
+        <div class="chip red"><span class="d">8 set</span> vaga</div>
+        <div class="chip"><span class="d">7 set</span> fi del debat de centre</div>
+        <div class="chip"><span class="d">15 set</span> límit comarcal</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actionbar">
+    <nav class="nav">
+      <div class="nav-inner">
+        <a href="#salaris">Salaris</a>
+        <a href="#ratios">Ràtios</a>
+        <a href="#inclusiva">Inclusiva</a>
+        <a href="#burocracia">Burocràcia</a>
+        <a href="#curriculum">Currículum</a>
+        <a href="#plantilles">Plantilles</a>
+        <a href="#democracia">Democràcia al centre</a>
+        <a href="#llengua">Llengua catalana</a>
+      </div>
+    </nav>
+    <div class="toolbar">
+      <div class="count">Prioritats marcades: <b id="totalCount">0</b></div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button class="ghost2" id="resetBtn" onclick="handleReset()">Esborrar tot</button>
+        <button onclick="handlePrint()">Imprimir les meves prioritats</button>
+        <span id="printHint" style="color:#EDEAE0;font-size:11.5px;"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="note">
+      Cliqueu els ítems que voldríeu prioritzar de cada eix: queden numerats per ordre. Podeu ajustar l'ordre amb les fletxes del requadre de resum. Formulari d'assemblees de base: <a href="https://forms.gle/gbEs3FpYmZ3GGXuJ8" target="_blank">forms.gle/gbEs3FpYmZ3GGXuJ8</a>.
+    </div>
+
+    <div class="eix" id="salaris">
+      <div class="eix-num">EIX 1 · 13 ítems</div>
+      <h2>Salaris</h2>
+      <p class="eix-hint">Cliqueu per marcar-los com a prioritat. Es numeren per ordre de clic.</p>
+      <ul class="items">
+        <li data-id="salaris-1" onclick="toggleItem('salaris','salaris-1')"><span class="badge"></span><span class="txt">Clàusula de garantia salarial (actualització automàtica segons IPC) per a tots els col·lectius</span></li>
+        <li data-id="salaris-2" onclick="toggleItem('salaris','salaris-2')"><span class="badge"></span><span class="txt">Convocar de manera estable la mesa de la funció pública per a tots els col·lectius</span></li>
+        <li data-id="salaris-3" onclick="toggleItem('salaris','salaris-3')"><span class="badge"></span><span class="txt">Revertir les retallades i retribucions per a tots els col·lectius</span></li>
+        <li data-id="salaris-4" onclick="toggleItem('salaris','salaris-4')"><span class="badge"></span><span class="txt">Reconèixer el pagament de les hores extra (colònies i sortides)</span></li>
+        <li data-id="salaris-5" onclick="toggleItem('salaris','salaris-5')"><span class="badge"></span><span class="txt">Cobrar els complements de tots els càrrecs realitzats, independentment de contractació i jornada</span></li>
+        <li data-id="salaris-6" onclick="toggleItem('salaris','salaris-6')"><span class="badge"></span><span class="txt">Reconèixer el càrrec de coordinació digital, a nivell horari i salarial</span></li>
+        <li data-id="salaris-7" onclick="toggleItem('salaris','salaris-7')"><span class="badge"></span><span class="txt">Pagar el retorn dels estadis "perduts" del 2008: pagues dobles reals per a tots els professionals</span></li>
+        <li data-id="salaris-8" onclick="toggleItem('salaris','salaris-8')"><span class="badge"></span><span class="txt">0-3: reconèixer i dignificar la professió i la categoria professional</span></li>
+        <li data-id="salaris-9" onclick="toggleItem('salaris','salaris-9')"><span class="badge"></span><span class="txt">0-3: reconèixer les categories A2 i B, equiparar salaris (mateixa feina, mateix salari)</span></li>
+        <li data-id="salaris-10" onclick="toggleItem('salaris','salaris-10')"><span class="badge"></span><span class="txt">PAE: cobrar el complement de destinació per màxima complexitat</span></li>
+        <li data-id="salaris-11" onclick="toggleItem('salaris','salaris-11')"><span class="badge"></span><span class="txt">PAE: absorbir el complement de productivitat 360 al salari base, sense avaluació</span></li>
+        <li data-id="salaris-12" onclick="toggleItem('salaris','salaris-12')"><span class="badge"></span><span class="txt">FP: equiparació salarial del PT singular i rebuig a la laboralització de perfils estructurals</span></li>
+        <li data-id="salaris-13" onclick="toggleItem('salaris','salaris-13')"><span class="badge"></span><span class="txt">Lleure: equiparació salarial i de condicions, amb pagues extres de colònies, extraescolars i sortides</span></li>
+      </ul>
+      <div class="summary-box empty" id="summary-salaris">Encara no heu marcat cap prioritat en aquest eix.</div>
+      <a class="backtotop" href="#">↑ Tornar amunt</a>
+    </div>
+
+    <div class="eix" id="ratios">
+      <div class="eix-num">EIX 2 · 17 ítems</div>
+      <h2>Ràtios</h2>
+      <p class="eix-hint">Cliqueu per marcar-los com a prioritat. Es numeren per ordre de clic.</p>
+      <div class="subgroup">Primer cicle infantil (0-3)</div>
+      <ul class="items">
+        <li data-id="ratios-1" onclick="toggleItem('ratios','ratios-1')"><span class="badge"></span><span class="txt">Modificar Decret 282/2006: baixar significativament ràtios i ampliar a 4 m² per infant</span></li>
+        <li data-id="ratios-2" onclick="toggleItem('ratios','ratios-2')"><span class="badge"></span><span class="txt">0-1: ràtio 4 infants per grup i educadora</span></li>
+        <li data-id="ratios-3" onclick="toggleItem('ratios','ratios-3')"><span class="badge"></span><span class="txt">1-2: ràtio 6 infants per grup i educadora</span></li>
+        <li data-id="ratios-4" onclick="toggleItem('ratios','ratios-4')"><span class="badge"></span><span class="txt">2-3: ràtio 8 infants per grup i educadora</span></li>
+        <li data-id="ratios-5" onclick="toggleItem('ratios','ratios-5')"><span class="badge"></span><span class="txt">Incloure una parella educativa real, amb mateixes funcions i condicions laborals</span></li>
+      </ul>
+      <div class="subgroup">Segon cicle infantil (3-6)</div>
+      <ul class="items">
+        <li data-id="ratios-6" onclick="toggleItem('ratios','ratios-6')"><span class="badge"></span><span class="txt">Modificar la ràtio a 12 alumnes</span></li>
+        <li data-id="ratios-7" onclick="toggleItem('ratios','ratios-7')"><span class="badge"></span><span class="txt">Incloure sempre la codocència en cada grup-classe</span></li>
+      </ul>
+      <div class="subgroup">Primària i ESO</div>
+      <ul class="items">
+        <li data-id="ratios-8" onclick="toggleItem('ratios','ratios-8')"><span class="badge"></span><span class="txt">Primària: modificar la ràtio a 15 alumnes</span></li>
+        <li data-id="ratios-9" onclick="toggleItem('ratios','ratios-9')"><span class="badge"></span><span class="txt">ESO: modificar la ràtio a 20 alumnes</span></li>
+      </ul>
+      <div class="subgroup">Postobligatòria</div>
+      <ul class="items">
+        <li data-id="ratios-10" onclick="toggleItem('ratios','ratios-10')"><span class="badge"></span><span class="txt">Batxillerat: modificar la ràtio a 20 alumnes</span></li>
+        <li data-id="ratios-11" onclick="toggleItem('ratios','ratios-11')"><span class="badge"></span><span class="txt">FP Bàsic: 12 (amb codocència en mòduls); Mitjà: 20; Superior: 20</span></li>
+      </ul>
+      <div class="subgroup">Inclusió i altres</div>
+      <ul class="items">
+        <li data-id="ratios-12" onclick="toggleItem('ratios','ratios-12')"><span class="badge"></span><span class="txt">NESE A i B: que l'alumnat computi doble des del diagnòstic i des de l'inici de l'etapa</span></li>
+        <li data-id="ratios-13" onclick="toggleItem('ratios','ratios-13')"><span class="badge"></span><span class="txt">SIEI a tots els centres amb reducció de ràtios: 5 alumnes per SIEI</span></li>
+        <li data-id="ratios-14" onclick="toggleItem('ratios','ratios-14')"><span class="badge"></span><span class="txt">Ràtio màxima de 10 alumnes per professional (dotació automàtica, no lligada al padró)</span></li>
+        <li data-id="ratios-15" onclick="toggleItem('ratios','ratios-15')"><span class="badge"></span><span class="txt">Entre 2 i 4 alumnes en grups de centres d'educació especial (CEE)</span></li>
+        <li data-id="ratios-16" onclick="toggleItem('ratios','ratios-16')"><span class="badge"></span><span class="txt">Abaixar ràtios proporcionalment als centres rurals (dotació automàtica, no lligada al padró)</span></li>
+        <li data-id="ratios-17" onclick="toggleItem('ratios','ratios-17')"><span class="badge"></span><span class="txt">Ràtios a l'ensenyament en línia idèntiques a la formació presencial</span></li>
+      </ul>
+      <div class="summary-box empty" id="summary-ratios">Encara no heu marcat cap prioritat en aquest eix.</div>
+      <a class="backtotop" href="#">↑ Tornar amunt</a>
+    </div>
+
+    <div class="eix" id="inclusiva">
+      <div class="eix-num">EIX 3 · 8 ítems</div>
+      <h2>Inclusiva</h2>
+      <p class="eix-hint">Cliqueu per marcar-los com a prioritat. Es numeren per ordre de clic.</p>
+      <ul class="items">
+        <li data-id="inclusiva-1" onclick="toggleItem('inclusiva','inclusiva-1')"><span class="badge"></span><span class="txt">Incrementar plantilles: equips psicosocials (TIS i ES) i reforçar equips psicopedagògics (PSI, PT, MALL, EEE, TEEI)</span></li>
+        <li data-id="inclusiva-2" onclick="toggleItem('inclusiva','inclusiva-2')"><span class="badge"></span><span class="txt">Ampliar personal al CDIAP per acompanyar professionals i famílies</span></li>
+        <li data-id="inclusiva-3" onclick="toggleItem('inclusiva','inclusiva-3')"><span class="badge"></span><span class="txt">Revisar i potenciar de forma significativa els serveis educatius, especialment EAP i CRETDIC</span></li>
+        <li data-id="inclusiva-4" onclick="toggleItem('inclusiva','inclusiva-4')"><span class="badge"></span><span class="txt">Augmentar l'orientació a la postobligatòria per als alumnes NESE</span></li>
+        <li data-id="inclusiva-5" onclick="toggleItem('inclusiva','inclusiva-5')"><span class="badge"></span><span class="txt">Dotar amb infermer/a escolar allà on calgui, començant pels CEE</span></li>
+        <li data-id="inclusiva-6" onclick="toggleItem('inclusiva','inclusiva-6')"><span class="badge"></span><span class="txt">Que el decret que regula 0-3 contempli la inclusió dels NESE</span></li>
+        <li data-id="inclusiva-7" onclick="toggleItem('inclusiva','inclusiva-7')"><span class="badge"></span><span class="txt">A Primària: diagnosi precoç sistemàtica de dificultats específiques d'aprenentatge</span></li>
+        <li data-id="inclusiva-8" onclick="toggleItem('inclusiva','inclusiva-8')"><span class="badge"></span><span class="txt">Que es respectin les dotacions de Professionals d'Atenció Educativa</span></li>
+      </ul>
+      <div class="summary-box empty" id="summary-inclusiva">Encara no heu marcat cap prioritat en aquest eix.</div>
+      <a class="backtotop" href="#">↑ Tornar amunt</a>
+    </div>
+
+    <div class="eix" id="burocracia">
+      <div class="eix-num">EIX 4 · 7 ítems</div>
+      <h2>Burocràcia</h2>
+      <p class="eix-hint">Cliqueu per marcar-los com a prioritat. Es numeren per ordre de clic.</p>
+      <ul class="items">
+        <li data-id="burocracia-1" onclick="toggleItem('burocracia','burocracia-1')"><span class="badge"></span><span class="txt">Les funcions de secretaria no són pròpies d'una docent, sinó de personal administratiu</span></li>
+        <li data-id="burocracia-2" onclick="toggleItem('burocracia','burocracia-2')"><span class="badge"></span><span class="txt">Reduir, unificar i no duplicar aplicatius amb l'Administració; eines realment efectives</span></li>
+        <li data-id="burocracia-3" onclick="toggleItem('burocracia','burocracia-3')"><span class="badge"></span><span class="txt">Participació efectiva del professorat en el disseny d'aplicatius i eines de traspàs d'informació</span></li>
+        <li data-id="burocracia-4" onclick="toggleItem('burocracia','burocracia-4')"><span class="badge"></span><span class="txt">Augmentar personal PAS en general per descarregar els docents de tasques burocràtiques</span></li>
+        <li data-id="burocracia-5" onclick="toggleItem('burocracia','burocracia-5')"><span class="badge"></span><span class="txt">Afegir personal PAS al 0-3 i equiparació amb altres etapes (ara ho assumeix direcció)</span></li>
+        <li data-id="burocracia-6" onclick="toggleItem('burocracia','burocracia-6')"><span class="badge"></span><span class="txt">Centres rurals: dotació estable de PAS a cada centre rural, independentment del nombre d'alumnes</span></li>
+        <li data-id="burocracia-7" onclick="toggleItem('burocracia','burocracia-7')"><span class="badge"></span><span class="txt">Desburocratització de la feina dels EAP i formació de qualitat en noves aplicacions</span></li>
+      </ul>
+      <div class="summary-box empty" id="summary-burocracia">Encara no heu marcat cap prioritat en aquest eix.</div>
+      <a class="backtotop" href="#">↑ Tornar amunt</a>
+    </div>
+
+    <div class="eix" id="curriculum">
+      <div class="eix-num">EIX 5 · 11 ítems</div>
+      <h2>Currículum</h2>
+      <p class="eix-hint">Cliqueu per marcar-los com a prioritat. Es numeren per ordre de clic.</p>
+      <ul class="items">
+        <li data-id="curriculum-1" onclick="toggleItem('curriculum','curriculum-1')"><span class="badge"></span><span class="txt">Participació efectiva dels treballadors en l'elaboració de decrets i lleis; unificació real de criteris 0-6</span></li>
+      </ul>
+      <div class="subgroup">Música</div>
+      <ul class="items">
+        <li data-id="curriculum-2" onclick="toggleItem('curriculum','curriculum-2')"><span class="badge"></span><span class="txt">Recuperar l'àrea de Música i Dansa a Primària com a àrea avaluable en si mateixa</span></li>
+        <li data-id="curriculum-3" onclick="toggleItem('curriculum','curriculum-3')"><span class="badge"></span><span class="txt">Garantir el còmput d'hores necessari per a la qualitat de l'educació musical</span></li>
+        <li data-id="curriculum-4" onclick="toggleItem('curriculum','curriculum-4')"><span class="badge"></span><span class="txt">Dotació econòmica per a aules de música noves i millora de les existents</span></li>
+      </ul>
+      <div class="subgroup">Ciències</div>
+      <ul class="items">
+        <li data-id="curriculum-5" onclick="toggleItem('curriculum','curriculum-5')"><span class="badge"></span><span class="txt">Retirar les darreres propostes de modificació de la dotació horària de ciències</span></li>
+        <li data-id="curriculum-6" onclick="toggleItem('curriculum','curriculum-6')"><span class="badge"></span><span class="txt">Eliminar hores de gestió autònoma a l'ESO; recuperar 5h FIQ + 5h BiG de 1r a 3r</span></li>
+        <li data-id="curriculum-7" onclick="toggleItem('curriculum','curriculum-7')"><span class="badge"></span><span class="txt">Optatives de 4t d'ESO de 3 hores</span></li>
+      </ul>
+      <div class="subgroup">Filosofia i llengües</div>
+      <ul class="items">
+        <li data-id="curriculum-8" onclick="toggleItem('curriculum','curriculum-8')"><span class="badge"></span><span class="txt">Augmentar la presència de l'Educació en Valors Cívics i Ètics (EVCE) a l'ESO</span></li>
+        <li data-id="curriculum-9" onclick="toggleItem('curriculum','curriculum-9')"><span class="badge"></span><span class="txt">Garantir l'optativa de Filosofia a 4t d'ESO i recuperar-la a 1r de Batxillerat</span></li>
+        <li data-id="curriculum-10" onclick="toggleItem('curriculum','curriculum-10')"><span class="badge"></span><span class="txt">Més hores de català i castellà de l'ESO al Batxillerat; reduir matèries de nova creació</span></li>
+      </ul>
+      <div class="subgroup">FP</div>
+      <ul class="items">
+        <li data-id="curriculum-11" onclick="toggleItem('curriculum','curriculum-11')"><span class="badge"></span><span class="txt">Debat profund sobre el currículum i les condicions de les pràctiques</span></li>
+      </ul>
+      <div class="summary-box empty" id="summary-curriculum">Encara no heu marcat cap prioritat en aquest eix.</div>
+      <a class="backtotop" href="#">↑ Tornar amunt</a>
+    </div>
+
+    <div class="eix" id="plantilles">
+      <div class="eix-num">EIX 6 · 28 ítems</div>
+      <h2>Plantilles</h2>
+      <p class="eix-hint">Cliqueu per marcar-los com a prioritat. Es numeren per ordre de clic.</p>
+      <div class="subgroup">General</div>
+      <ul class="items">
+        <li data-id="plantilles-1" onclick="toggleItem('plantilles','plantilles-1')"><span class="badge"></span><span class="txt">Augmentar les plantilles de docents, mestres i PAE (ordinaris i especialistes)</span></li>
+        <li data-id="plantilles-2" onclick="toggleItem('plantilles','plantilles-2')"><span class="badge"></span><span class="txt">Estabilitzar el personal interí en frau de llei (més de 3 anys al mateix lloc)</span></li>
+        <li data-id="plantilles-3" onclick="toggleItem('plantilles','plantilles-3')"><span class="badge"></span><span class="txt">Convocatòries d'oposicions cada any per estabilitzar el personal</span></li>
+        <li data-id="plantilles-4" onclick="toggleItem('plantilles','plantilles-4')"><span class="badge"></span><span class="txt">Computar les tutories de pràctiques per a tots els docents i PAE</span></li>
+        <li data-id="plantilles-5" onclick="toggleItem('plantilles','plantilles-5')"><span class="badge"></span><span class="txt">Internalitzar completament abans del 2029-2030: vetlladores, monitoratge NESE, transport, intèrprets, extraescolars, acollida, menjador, patis i treballadors municipals 0-3</span></li>
+        <li data-id="plantilles-6" onclick="toggleItem('plantilles','plantilles-6')"><span class="badge"></span><span class="txt">Blindar les places definitives (no supressió per creació de llocs perfilats)</span></li>
+        <li data-id="plantilles-7" onclick="toggleItem('plantilles','plantilles-7')"><span class="badge"></span><span class="txt">Blindar el concurs autonòmic bianual amb el mateix sistema de provisió que l'estatal</span></li>
+        <li data-id="plantilles-8" onclick="toggleItem('plantilles','plantilles-8')"><span class="badge"></span><span class="txt">Garantir substitucions en el termini més breu, des del primer dia fins al 31 d'agost</span></li>
+      </ul>
+      <div class="subgroup">Col·lectiu 0-3</div>
+      <ul class="items">
+        <li data-id="plantilles-9" onclick="toggleItem('plantilles','plantilles-9')"><span class="badge"></span><span class="txt">Contracte total per part del Departament d'Educació (Generalitat)</span></li>
+        <li data-id="plantilles-10" onclick="toggleItem('plantilles','plantilles-10')"><span class="badge"></span><span class="txt">Un 0-3 100% públic, universal, gratuït, inclusiu i de qualitat</span></li>
+        <li data-id="plantilles-11" onclick="toggleItem('plantilles','plantilles-11')"><span class="badge"></span><span class="txt">Equiparar el calendari escolar amb el cicle 3-6</span></li>
+        <li data-id="plantilles-12" onclick="toggleItem('plantilles','plantilles-12')"><span class="badge"></span><span class="txt">Establir l'edat de jubilació anticipada i el cessament progressiu de l'activitat</span></li>
+        <li data-id="plantilles-13" onclick="toggleItem('plantilles','plantilles-13')"><span class="badge"></span><span class="txt">Assolir la gestió d'una única borsa de substitucions</span></li>
+        <li data-id="plantilles-14" onclick="toggleItem('plantilles','plantilles-14')"><span class="badge"></span><span class="txt">Revisar la formació inicial o estudis d'accés a la professió</span></li>
+      </ul>
+      <div class="subgroup">Col·lectiu PAE</div>
+      <ul class="items">
+        <li data-id="plantilles-15" onclick="toggleItem('plantilles','plantilles-15')"><span class="badge"></span><span class="txt">Reclassificació professional del personal (TEI, TIS, EEE, LOG, fisioterapeutes) més ràpida</span></li>
+        <li data-id="plantilles-16" onclick="toggleItem('plantilles','plantilles-16')"><span class="badge"></span><span class="txt">Més hores de preparació de material i coordinació; menys hores de permanència; jubilació anticipada i estadis reals</span></li>
+        <li data-id="plantilles-17" onclick="toggleItem('plantilles','plantilles-17')"><span class="badge"></span><span class="txt">Funcions clares i especificades, i dotació horària objectiva</span></li>
+        <li data-id="plantilles-18" onclick="toggleItem('plantilles','plantilles-18')"><span class="badge"></span><span class="txt">Un equip PAE més ampli a cada centre i una TEI a cada I3</span></li>
+        <li data-id="plantilles-19" onclick="toggleItem('plantilles','plantilles-19')"><span class="badge"></span><span class="txt">Ampliar places PAE i que les places de programa passin a ser estructurals</span></li>
+        <li data-id="plantilles-20" onclick="toggleItem('plantilles','plantilles-20')"><span class="badge"></span><span class="txt">Borses amb possibilitat de triar zones properes per facilitar la conciliació</span></li>
+        <li data-id="plantilles-21" onclick="toggleItem('plantilles','plantilles-21')"><span class="badge"></span><span class="txt">Poder bloquejar o congelar el número de la borsa, com altres professionals</span></li>
+        <li data-id="plantilles-22" onclick="toggleItem('plantilles','plantilles-22')"><span class="badge"></span><span class="txt">Complement de perillositat en el cas de les EEE</span></li>
+      </ul>
+      <div class="subgroup">Col·lectiu EAP</div>
+      <ul class="items">
+        <li data-id="plantilles-23" onclick="toggleItem('plantilles','plantilles-23')"><span class="badge"></span><span class="txt">Publicar un nou decret de serveis educatius adaptat a la realitat actual</span></li>
+        <li data-id="plantilles-24" onclick="toggleItem('plantilles','plantilles-24')"><span class="badge"></span><span class="txt">Publicar un concurs de mèrits per a la provisió de places</span></li>
+        <li data-id="plantilles-25" onclick="toggleItem('plantilles','plantilles-25')"><span class="badge"></span><span class="txt">Ampliar la plantilla (psicopedagogia, treball social, fisioteràpia, logopèdia)</span></li>
+        <li data-id="plantilles-26" onclick="toggleItem('plantilles','plantilles-26')"><span class="badge"></span><span class="txt">Reconèixer càrrecs, coordinacions i responsabilitats com a mèrits de provisió i promoció</span></li>
+      </ul>
+      <div class="subgroup">Col·lectiu lleure</div>
+      <ul class="items">
+        <li data-id="plantilles-27" onclick="toggleItem('plantilles','plantilles-27')"><span class="badge"></span><span class="txt">Internalització de tot el personal del lleure: monitores de menjador, pati, vetlladores, etc.</span></li>
+        <li data-id="plantilles-28" onclick="toggleItem('plantilles','plantilles-28')"><span class="badge"></span><span class="txt">Ampliar plantilla de menjadors, patis, extraescolars, sortides i colònies</span></li>
+      </ul>
+      <div class="summary-box empty" id="summary-plantilles">Encara no heu marcat cap prioritat en aquest eix.</div>
+      <a class="backtotop" href="#">↑ Tornar amunt</a>
+    </div>
+
+    <div class="eix" id="democracia">
+      <div class="eix-num">EIX 7 · 10 ítems</div>
+      <h2>Democràcia al centre</h2>
+      <p class="eix-hint">Cliqueu per marcar-los com a prioritat. Es numeren per ordre de clic.</p>
+      <ul class="items">
+        <li data-id="democracia-1" onclick="toggleItem('democracia','democracia-1')"><span class="badge"></span><span class="txt">Revisar i recuperar la força de decisió dels claustres, que haurien de regir els centres</span></li>
+        <li data-id="democracia-2" onclick="toggleItem('democracia','democracia-2')"><span class="badge"></span><span class="txt">Elecció de les direccions per part del claustre, o un major pes del claustre en l'elecció</span></li>
+        <li data-id="democracia-3" onclick="toggleItem('democracia','democracia-3')"><span class="badge"></span><span class="txt">Ampliació del dret a vot: personal PAE, vetlladores i personal del lleure</span></li>
+        <li data-id="democracia-4" onclick="toggleItem('democracia','democracia-4')"><span class="badge"></span><span class="txt">Retorn a la col·legialitat; adjudicació de places per antiguitat i mèrits, sense entrevistes</span></li>
+        <li data-id="democracia-5" onclick="toggleItem('democracia','democracia-5')"><span class="badge"></span><span class="txt">Derogació dels decrets d'Autonomia (102/2010), Direcció (155/2010) i Plantilles (39/2014)</span></li>
+        <li data-id="democracia-6" onclick="toggleItem('democracia','democracia-6')"><span class="badge"></span><span class="txt">Eliminar entrevistes, no-continuïtats i tota forma de provisió no objectiva</span></li>
+        <li data-id="democracia-7" onclick="toggleItem('democracia','democracia-7')"><span class="badge"></span><span class="txt">Eliminació dels perfils</span></li>
+        <li data-id="democracia-8" onclick="toggleItem('democracia','democracia-8')"><span class="badge"></span><span class="txt">Que les direccions tornin a ser membres del claustre, no caps de personal</span></li>
+        <li data-id="democracia-9" onclick="toggleItem('democracia','democracia-9')"><span class="badge"></span><span class="txt">Tria dels càrrecs directius i de coordinació amb participació efectiva dels claustres</span></li>
+        <li data-id="democracia-10" onclick="toggleItem('democracia','democracia-10')"><span class="badge"></span><span class="txt">Revisió del procés de tria de l'equip directiu, partint de les valoracions del claustre</span></li>
+      </ul>
+      <div class="summary-box empty" id="summary-democracia">Encara no heu marcat cap prioritat en aquest eix.</div>
+      <a class="backtotop" href="#">↑ Tornar amunt</a>
+    </div>
+
+    <div class="eix" id="llengua">
+      <div class="eix-num">EIX 8 · 12 ítems</div>
+      <h2>Llengua catalana</h2>
+      <p class="eix-hint">Cliqueu per marcar-los com a prioritat. Es numeren per ordre de clic.</p>
+      <ul class="items">
+        <li data-id="llengua-1" onclick="toggleItem('llengua','llengua-1')"><span class="badge"></span><span class="txt">Reforçar els recursos i dotacions per garantir el sistema d'immersió lingüística</span></li>
+        <li data-id="llengua-2" onclick="toggleItem('llengua','llengua-2')"><span class="badge"></span><span class="txt">Dotar de recursos les aules d'acollida</span></li>
+        <li data-id="llengua-3" onclick="toggleItem('llengua','llengua-3')"><span class="badge"></span><span class="txt">Grups de reforç lingüístic perquè l'alumnat nouvingut adquireixi el nivell necessari</span></li>
+        <li data-id="llengua-4" onclick="toggleItem('llengua','llengua-4')"><span class="badge"></span><span class="txt">Vincular el reconeixement del C1 a una prova homologable o nota alta real</span></li>
+        <li data-id="llengua-5" onclick="toggleItem('llengua','llengua-5')"><span class="badge"></span><span class="txt">Blindar el català davant la inacció del Departament</span></li>
+        <li data-id="llengua-6" onclick="toggleItem('llengua','llengua-6')"><span class="badge"></span><span class="txt">Garantir materials en català en general, amb esment especial als de la FP</span></li>
+        <li data-id="llengua-7" onclick="toggleItem('llengua','llengua-7')"><span class="badge"></span><span class="txt">Actualitzar els Projectes Lingüístics de Centre, vinculants i signats per l'Equip Directiu</span></li>
+        <li data-id="llengua-8" onclick="toggleItem('llengua','llengua-8')"><span class="badge"></span><span class="txt">Garantir la proactivitat de la Inspecció en escoles públiques i concertades</span></li>
+        <li data-id="llengua-9" onclick="toggleItem('llengua','llengua-9')"><span class="badge"></span><span class="txt">Clàusules lingüístiques amb totes les empreses subcontractades (extraescolars, lleure, etc.)</span></li>
+        <li data-id="llengua-10" onclick="toggleItem('llengua','llengua-10')"><span class="badge"></span><span class="txt">Reivindicar el pes de la figura LIC, amb funcions i marc horari clars</span></li>
+        <li data-id="llengua-11" onclick="toggleItem('llengua','llengua-11')"><span class="badge"></span><span class="txt">Garantir un pla integral de catalanització de la FP</span></li>
+        <li data-id="llengua-12" onclick="toggleItem('llengua','llengua-12')"><span class="badge"></span><span class="txt">Bústia de queixes lingüístiques institucional i independent del Departament</span></li>
+      </ul>
+      <div class="summary-box empty" id="summary-llengua">Encara no heu marcat cap prioritat en aquest eix.</div>
+      <a class="backtotop" href="#">↑ Tornar amunt</a>
+    </div>
+
+    <footer>Eina de suport personal per preparar el debat — porteu-la impresa o a mà a l'assemblea de centre.</footer>
+  </div>
+
+<script>
+// state: eix slug -> ordered array of selected item ids (progressive enhancement;
+// all content and navigation above already works with JS disabled)
+const state = {
+  salaris: [], ratios: [], inclusiva: [], burocracia: [],
+  curriculum: [], plantilles: [], democracia: [], llengua: []
+};
+
+function toggleItem(eix, id){
+  const arr = state[eix];
+  const idx = arr.indexOf(id);
+  if (idx === -1) arr.push(id); else arr.splice(idx, 1);
+  renderEix(eix);
+  updateTotal();
+}
+
+function moveItem(eix, id, dir){
+  const arr = state[eix];
+  const idx = arr.indexOf(id);
+  const newIdx = idx + dir;
+  if (newIdx < 0 || newIdx >= arr.length) return;
+  [arr[idx], arr[newIdx]] = [arr[newIdx], arr[idx]];
+  renderEix(eix);
+}
+
+function removeItem(eix, id){
+  const arr = state[eix];
+  const idx = arr.indexOf(id);
+  if (idx !== -1) arr.splice(idx, 1);
+  renderEix(eix);
+  updateTotal();
+}
+
+function textOf(eix, id){
+  const li = document.querySelector(`#${eix} li[data-id="${id}"] .txt`);
+  return li ? li.textContent : '';
+}
+
+function renderEix(eix){
+  const arr = state[eix];
+  const section = document.getElementById(eix);
+
+  section.querySelectorAll('ul.items li').forEach(li => {
+    const id = li.dataset.id;
+    const pos = arr.indexOf(id);
+    if (pos === -1) {
+      li.classList.remove('selected');
+      li.querySelector('.badge').textContent = '';
+    } else {
+      li.classList.add('selected');
+      li.querySelector('.badge').textContent = pos + 1;
+    }
+  });
+
+  const box = document.getElementById('summary-' + eix);
+  if (arr.length === 0) {
+    box.className = 'summary-box empty';
+    box.textContent = 'Encara no heu marcat cap prioritat en aquest eix.';
+    return;
+  }
+  box.className = 'summary-box';
+  let html = `<div class="stitle">Les vostres prioritats en aquest eix</div>`;
+  arr.forEach((id, i) => {
+    html += `
+      <div class="s-row">
+        <div class="s-num">${i + 1}</div>
+        <div class="s-text">${textOf(eix, id)}</div>
+        <div class="s-controls">
+          <button onclick="moveItem('${eix}', '${id}', -1)" ${i === 0 ? 'disabled' : ''} title="Puja">↑</button>
+          <button onclick="moveItem('${eix}', '${id}', 1)" ${i === arr.length - 1 ? 'disabled' : ''} title="Baixa">↓</button>
+          <button class="s-remove" onclick="removeItem('${eix}', '${id}')" title="Treu">✕</button>
+        </div>
+      </div>`;
+  });
+  box.innerHTML = html;
+}
+
+function updateTotal(){
+  let total = 0;
+  Object.values(state).forEach(arr => total += arr.length);
+  document.getElementById('totalCount').textContent = total;
+}
+
+let resetArmed = false;
+function handleReset(){
+  const btn = document.getElementById('resetBtn');
+  if (!resetArmed) {
+    resetArmed = true;
+    btn.textContent = 'Segur? Prem un altre cop';
+    setTimeout(() => { resetArmed = false; btn.textContent = 'Esborrar tot'; }, 3000);
+    return;
+  }
+  resetArmed = false;
+  btn.textContent = 'Esborrar tot';
+  Object.keys(state).forEach(eix => {
+    state[eix] = [];
+    renderEix(eix);
+  });
+  updateTotal();
+}
+
+function handlePrint(){
+  const hint = document.getElementById('printHint');
+  try {
+    window.print();
+  } catch (e) {
+    if (hint) hint.textContent = 'Prem Ctrl+P (o Cmd+P al Mac) per imprimir.';
+    return;
+  }
+  if (hint) hint.textContent = 'Si no s\'obre el diàleg, prova Ctrl+P / Cmd+P.';
+}
+</script>
+</body>
+</html>
